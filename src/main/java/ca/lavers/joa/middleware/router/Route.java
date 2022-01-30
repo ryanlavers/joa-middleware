@@ -33,11 +33,6 @@ class Route {
             path = path.substring(1);
         }
 
-        // Prefixes must end in / so that "/foobar" doesn't match the prefix "/foo"
-        if(isPrefix && !path.endsWith("/")) {
-            path = path + "/";
-        }
-
         StringJoiner sj = new StringJoiner("/");
 
         for(String part : path.split("/")) {
@@ -54,7 +49,12 @@ class Route {
             }
         }
 
-        String regex = sj.toString() + (isPrefix ? ".*" : "");
+        String regex = sj.toString();
+
+        if(isPrefix) {
+            regex += "(|/.*)";
+        }
+
         return Pattern.compile("/" + regex);
     }
 

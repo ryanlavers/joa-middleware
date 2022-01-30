@@ -94,4 +94,28 @@ public class RouterTest {
     assertFalse(afterRouter.ran());
   }
 
+  @Test
+  void prefixMissingSlash() {
+    Router router = new Router();
+    TestMiddleware dontRun = new TestMiddleware();
+
+    router.mount("/foo", dontRun);
+
+    MockRequest.get("/foo1").run(router);
+
+    assertFalse(dontRun.ran());
+  }
+
+  @Test
+  void prefixExactMatch() {
+    Router router = new Router();
+    TestMiddleware doRun = new TestMiddleware();
+
+    router.mount("/foo", doRun);
+
+    MockRequest.get("/foo").run(router);
+
+    assertTrue(doRun.ran());
+  }
+
 }
