@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BatchRequest {
 
@@ -91,6 +92,13 @@ public class BatchRequest {
         @Override
         public Map<String, String> queryParams() {
             return queryParams;
+        }
+
+        @Override
+        public String rawQuery() {
+            return queryParams.entrySet().stream()
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(Collectors.joining("&"));
         }
 
         @Override

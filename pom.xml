@@ -6,7 +6,7 @@
 
     <groupId>ca.lavers</groupId>
     <artifactId>joa-middleware</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>ca.lavers</groupId>
             <artifactId>joa-core</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>ca.lavers</groupId>
             <artifactId>joa-test</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -29,7 +29,8 @@ public class Cors implements Middleware {
     /**
      * Add an allowed origin. If the request contains an Origin header matching
      * one of the allowed origins, CORS headers will be added to the response
-     * permitting the cross-origin request.
+     * permitting the cross-origin request. If the special value "*" is passed to
+     * this method, all origins will be allowed.
      */
     public Cors withAllowedOrigin(String origin) {
         this.allowedOrigins.add(origin);
@@ -68,9 +69,10 @@ public class Cors implements Middleware {
     private void handleCors(Request req, Response resp) {
         final String originHeader = req.header("Origin");
         if(originHeader != null && !originHeader.isEmpty()) {
-            if(allowedOrigins.contains(originHeader)) {
+            if(allowedOrigins.contains(originHeader) || allowedOrigins.contains("*")) {
                 resp.header("Access-Control-Allow-Origin", originHeader);
-                resp.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                // TODO -- Inspect Access-Control-Request-Method and make sure that value is in here
+                resp.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
                 final String requestHeaders = req.header("Access-Control-Request-Headers");
                 if (requestHeaders != null && !requestHeaders.isEmpty()) {
                     resp.header("Access-Control-Allow-Headers", requestHeaders);
